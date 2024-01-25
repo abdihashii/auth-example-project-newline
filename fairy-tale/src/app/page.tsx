@@ -14,6 +14,10 @@ export default async function Home() {
 			{user ? (
 				<section className="max-w-md">
 					<p>You are signed in</p>
+
+					<p>You should only be able to view this if your authorized</p>
+
+					<p>Your email is: {user.email}</p>
 					{/* <Button>Sign out</Button> */}
 				</section>
 			) : (
