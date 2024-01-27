@@ -3,10 +3,15 @@
 import Link from 'next/link';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
-import { Feather } from 'lucide-react';
+import { EyeIcon, EyeOff, Feather } from 'lucide-react';
 import { Button } from '../ui/button';
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa';
+import { useState } from 'react';
 
 const SignInForm = () => {
+	const [showPassword, setShowPassword] = useState(false);
+
 	return (
 		<form className="w-full max-w-md space-y-6 rounded-lg bg-white p-6 shadow-lg">
 			<section className="flex items-center justify-center gap-2">
@@ -28,7 +33,20 @@ const SignInForm = () => {
 						Forgot your password?
 					</Label>
 				</div>
-				<Input id="password" type="password" />
+				<div className="relative">
+					<Input id="password" type={showPassword ? 'text' : 'password'} />
+					{showPassword ? (
+						<EyeOff
+							className="absolute right-2 top-2 hover:cursor-pointer hover:text-slate-500"
+							onClick={() => setShowPassword((prev) => !prev)}
+						/>
+					) : (
+						<EyeIcon
+							className="absolute right-2 top-2 hover:cursor-pointer hover:text-slate-500"
+							onClick={() => setShowPassword((prev) => !prev)}
+						/>
+					)}
+				</div>
 			</section>
 
 			<section className="space-y-4">
@@ -36,12 +54,12 @@ const SignInForm = () => {
 					Sign In
 				</Button>
 
-				<Button type="button" className="w-full" variant={'outline'}>
-					Sign In with Google
+				<Button type="button" className="flex w-full gap-2" variant={'outline'}>
+					<FcGoogle className="h-4 w-4" /> Sign In with Google
 				</Button>
 
-				<Button type="button" className="w-full" variant={'outline'}>
-					Sign In with GitHub
+				<Button type="button" className="flex w-full gap-2" variant={'outline'}>
+					<FaGithub className="h-4 w-4" /> Sign In with GitHub
 				</Button>
 			</section>
 
