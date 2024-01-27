@@ -1,3 +1,4 @@
+import SignOutButton from '@/components/Auth/SignOutButton';
 import { getUser } from '@/lib/supabaseServerClient';
 import { redirect } from 'next/navigation';
 
@@ -14,6 +15,8 @@ export default async function ProtectedPage() {
 				<h1>This page is protected</h1>
 
 				<p>Hello, {user.email}</p>
+
+				<SignOutButton />
 			</section>
 		</main>
 	);

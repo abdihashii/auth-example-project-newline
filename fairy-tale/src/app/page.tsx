@@ -1,3 +1,4 @@
+import SignOutButton from '@/components/Auth/SignOutButton';
 import { Button } from '@/components/ui/button';
 import { getUser } from '@/lib/supabaseServerClient';
 import Link from 'next/link';
@@ -12,13 +13,14 @@ export default async function Home() {
 			</h1>
 
 			{user ? (
-				<section className="max-w-md">
+				<section className="flex max-w-md flex-col items-center gap-4">
 					<p>You are signed in</p>
 
 					<p>You should only be able to view this if your authorized</p>
 
 					<p>Your email is: {user.email}</p>
-					{/* <Button>Sign out</Button> */}
+
+					<SignOutButton />
 				</section>
 			) : (
 				<section className="flex max-w-md flex-col gap-4">
