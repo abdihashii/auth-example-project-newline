@@ -6,7 +6,7 @@ import * as z from 'zod';
 import { FieldValues, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { EyeIcon, EyeOff, Feather } from 'lucide-react';
+import { EyeIcon, EyeOff, Feather, Loader2 } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { Button } from '../ui/button';
@@ -33,7 +33,10 @@ const SignInForm = () => {
 	});
 
 	const [showPassword, setShowPassword] = useState(false);
-	const { handleSignInWithEmail } = useAuth();
+	const {
+		handleSignInWithEmail,
+		loadingState: { signIn: signInLoading },
+	} = useAuth();
 
 	const onSubmit = (data: FieldValues) => {
 		handleSignInWithEmail(data);
@@ -101,7 +104,7 @@ const SignInForm = () => {
 
 			<section className="space-y-4">
 				<Button type="submit" className="w-full">
-					Sign In
+					{signInLoading ? <Loader2 className="animate-spin" /> : 'Sign In'}
 				</Button>
 
 				<Button type="button" className="flex w-full gap-2" variant={'outline'}>
