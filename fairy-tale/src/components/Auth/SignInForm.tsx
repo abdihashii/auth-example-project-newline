@@ -36,7 +36,8 @@ const SignInForm = () => {
 	const {
 		handleSignInWithEmail,
 		handleSignInWithGitHub,
-		loadingState: { signIn: signInLoading, signInWithGitHub },
+		handleSignInWithGoogle,
+		loadingState: { signIn: signInLoading, signInWithGitHub, signInWithGoogle },
 	} = useAuth();
 
 	const onSubmit = (data: FieldValues) => {
@@ -50,7 +51,7 @@ const SignInForm = () => {
 		>
 			<section className="flex items-center justify-center gap-2">
 				<Feather className="h-8 w-8" />
-				<h1 className="inline-block bg-gradient-to-r from-blue-600  via-red-500 to-indigo-400 bg-clip-text text-2xl font-bold text-transparent">
+				<h1 className="inline-block bg-gradient-to-r from-blue-600  via-red-500 to-indigo-400 bg-clip-text text-4xl font-bold text-transparent">
 					Fairy Tale
 				</h1>
 			</section>
@@ -108,8 +109,19 @@ const SignInForm = () => {
 					{signInLoading ? <Loader2 className="animate-spin" /> : 'Sign In'}
 				</Button>
 
-				<Button type="button" className="flex w-full gap-2" variant={'outline'}>
-					<FcGoogle className="h-4 w-4" /> Sign In with Google
+				<Button
+					type="button"
+					className="flex w-full gap-2"
+					variant={'outline'}
+					onClick={handleSignInWithGoogle}
+				>
+					{signInWithGoogle ? (
+						<Loader2 className="animate-spin" />
+					) : (
+						<>
+							<FcGoogle className="h-4 w-4" /> Sign In with Google
+						</>
+					)}
 				</Button>
 
 				<Button

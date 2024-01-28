@@ -11,6 +11,7 @@ const useAuth = () => {
 	const [loadingState, setLoadingState] = useState({
 		signIn: false,
 		signInWithGitHub: false,
+		signInWithGoogle: false,
 		signUp: false,
 		signOut: false,
 	});
@@ -67,6 +68,37 @@ const useAuth = () => {
 		}
 	};
 
+	const handleSignInWithGoogle = async () => {
+		try {
+			setLoadingState((prev) => ({
+				...prev,
+				signInWithGoogle: true,
+			}));
+
+			const { error } = await supabase.auth.signInWithOAuth({
+				provider: 'google',
+				options: {
+					redirectTo: `${location.origin}/api/auth/callback`,
+					queryParams: {
+						access_type: 'offline',
+						prompt: 'consent',
+					},
+				},
+			});
+
+			if (error) {
+				throw error;
+			}
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setLoadingState((prev) => ({
+				...prev,
+				signInWithGoogle: false,
+			}));
+		}
+	};
+
 	const handleSignOut = async () => {
 		try {
 			setLoadingState((prev) => ({
@@ -92,6 +124,7 @@ const useAuth = () => {
 	return {
 		handleSignInWithEmail,
 		handleSignInWithGitHub,
+		handleSignInWithGoogle,
 		handleSignOut,
 		loadingState,
 	};
