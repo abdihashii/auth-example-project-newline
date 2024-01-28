@@ -35,7 +35,8 @@ const SignInForm = () => {
 	const [showPassword, setShowPassword] = useState(false);
 	const {
 		handleSignInWithEmail,
-		loadingState: { signIn: signInLoading },
+		handleSignInWithGitHub,
+		loadingState: { signIn: signInLoading, signInWithGitHub },
 	} = useAuth();
 
 	const onSubmit = (data: FieldValues) => {
@@ -111,8 +112,19 @@ const SignInForm = () => {
 					<FcGoogle className="h-4 w-4" /> Sign In with Google
 				</Button>
 
-				<Button type="button" className="flex w-full gap-2" variant={'outline'}>
-					<FaGithub className="h-4 w-4" /> Sign In with GitHub
+				<Button
+					type="button"
+					className="flex w-full gap-2"
+					variant={'outline'}
+					onClick={handleSignInWithGitHub}
+				>
+					{signInWithGitHub ? (
+						<Loader2 className="animate-spin" />
+					) : (
+						<>
+							<FaGithub className="h-4 w-4" /> Sign In with GitHub
+						</>
+					)}
 				</Button>
 			</section>
 
