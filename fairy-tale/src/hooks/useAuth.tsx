@@ -10,6 +10,7 @@ const useAuth = () => {
 
 	const [loadingState, setLoadingState] = useState({
 		signIn: false,
+		signInWithGitHub: false,
 		signUp: false,
 		signOut: false,
 	});
@@ -39,6 +40,33 @@ const useAuth = () => {
 		}
 	};
 
+	const handleSignInWithGitHub = async () => {
+		try {
+			setLoadingState((prev) => ({
+				...prev,
+				signInWithGitHub: true,
+			}));
+
+			const { error } = await supabase.auth.signInWithOAuth({
+				provider: 'github',
+				options: {
+					redirectTo: `${location.origin}/api/auth/callback`,
+				},
+			});
+
+			if (error) {
+				throw error;
+			}
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setLoadingState((prev) => ({
+				...prev,
+				signInWithGitHub: false,
+			}));
+		}
+	};
+
 	const handleSignOut = async () => {
 		try {
 			setLoadingState((prev) => ({
@@ -61,7 +89,12 @@ const useAuth = () => {
 		}
 	};
 
-	return { handleSignInWithEmail, handleSignOut, loadingState };
+	return {
+		handleSignInWithEmail,
+		handleSignInWithGitHub,
+		handleSignOut,
+		loadingState,
+	};
 };
 
 export default useAuth;
