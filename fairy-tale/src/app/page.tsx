@@ -20,6 +20,13 @@ export default async function Home() {
 
 					<p>Your email is: {user.email}</p>
 
+					<p>
+						<Link href="/protected" className="text-blue-500 underline">
+							Visit
+						</Link>{' '}
+						your protected page
+					</p>
+
 					<SignOutButton />
 				</section>
 			) : (
